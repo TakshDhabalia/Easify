@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="Easify",  # Replace with your package name
-    version="1.0.1",
+    version="1.0.2",
     description="Prints preprocessing code for data engineering tasks",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
