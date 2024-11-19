@@ -438,3 +438,288 @@ silhouette_avg_hierarchical = silhouette_score(dataset, labels_hierarchical)
 print("Silhouette Score for Hierarchical clustering:", silhouette_avg_hierarchical)
 """
     print(code)
+
+def print_1():
+    code1 = """
+        import pandas as pd 
+    import numpy as np 
+    data = pd.read_csv("heart.csv") 
+    data.head() 
+    data.isnull().sum() 
+    missing=pd.isnull(data["Network"]) 
+    data[missing] 
+    print("The standard deviation of column 'Average Runtime' and 'Rating' is :") 
+    print(data['Average Runtime'].std(), data['Rating'].std()) 
+    print("Mean:Computed row-wise:") 
+    meanData = data["Rating"].mean() 
+    print(meanData) 
+    data.ndim 
+    data.size 
+    data.isnull() 
+    data.isnull().shape 
+    data.isnull().values.any() 
+    data["Rating"].fillna(99,inplace=True) 
+    data["Rating"] 
+    mean_rating=data[data["Rating"] != 99]["Rating"].mean() 
+    print(round(mean_rating,3)) 
+    data["Rating"].replace(99, mean_rating, inplace=True) 
+    print(data["Rating"]) 
+    data.drop(index=4,inplace=True) 
+    print(data)
+    """
+    print(code1)
+
+def print_2():
+    code2 = """
+        import pandas as pd 
+    import numpy as np 
+    import matplotlib.pyplot as plt 
+    import seaborn as sns 
+    from sklearn.datasets import load_iris 
+    from sklearn.feature_selection import SelectKBest, chi2 
+    data = pd.read_csv("heart.csv") 
+    data.head() 
+    df = pd.DataFrame(data) 
+    duplicate=df.drop_duplicates() 
+    print("Duplicates removed") 
+    corr_matrix=df.corr() 
+    print(corr_matrix) 
+    #HEATMAP 
+    sns.heatmap(data,cmap='coolwarm') 
+    plt.title('Heatmap') 
+    plt.show() 
+    #LINE CHART 
+    print("Line Chart") 
+    plt.figure(figsize=(10, 5)) 
+    plt.plot(df.index, df['age'], marker='o') 
+    plt.title('Age Trend Over Time') 
+    plt.xlabel('Index') 
+    plt.ylabel('Age') 
+    plt.show() 
+    #BAR CHART 
+    plt.figure(figsize=(10, 5)) 
+    df['cp'].value_counts().plot(kind='bar') 
+    plt.title('Chest Pain Type Distribution') 
+    plt.xlabel('Chest Pain Type') 
+    plt.ylabel('Frequency') 
+    plt.show() 
+    plt.figure(figsize=(10, 5)) 
+    df['age'].plot(kind='hist', bins=5) 
+    plt.title('Age Distribution') 
+    plt.xlabel('Age') 
+    plt.ylabel('Frequency') 
+    plt.show() 
+    #SCATTER PLOT 
+    print("Scatter Plot") 
+    plt.figure(figsize=(10, 5)) 
+    plt.scatter(df['age'], df['chol'], alpha=0.7) 
+    plt.title('Age vs. Cholesterol') 
+    plt.xlabel('Age') 
+    plt.ylabel('Cholesterol') 
+    plt.show() 
+    #PIE CHART 
+    print("Pie Chart") 
+    plt.figure(figsize=(8, 8)) 
+    df['sex'].value_counts().plot(kind='pie', autopct='%1.1f%%') 
+    plt.title('Proportion of Sex') 
+    plt.ylabel('') 
+    plt.show() 
+    #BOX PLOT 
+    print("Box Plot") 
+    plt.figure(figsize=(10, 5)) 
+    sns.boxplot(x='cp', y='chol', data=df) 
+    plt.title('Cholesterol by Chest Pain Type') 
+    plt.xlabel('Chest Pain Type') 
+    plt.ylabel('Cholesterol') 
+    plt.show() 
+    #MIN_MAX SCALING 
+    def min_max_scaling(df): 
+    return (df - df.min()) / (df.max() - df.min()) 
+    df_scaled = min_max_scaling(df) 
+    print("Original Data:") 
+    print(df) 
+    print("\nScaled Data:") 
+    print(df_scaled) 
+    #Z-SCORE SCALING 
+    def z_score_scaling_np(data): 
+    mean = np.mean(data, axis=0) 
+    std_dev = np.std(data, axis=0) 
+    return (data - mean) / std_dev 
+    data_scaled = z_score_scaling_np(data) 
+    print("Original Data:") 
+    print(data) 
+    print("\nScaled Data (Z-score):") 
+    print(data_scaled) 
+    #FEATURE SCALING 
+    print("Feature Scacling") 
+    X=data[['age']] 
+    y=data[['sex']] 
+    selector = SelectKBest(score_func=chi2, k=1) 
+    X_new = selector.fit_transform(X, y) 
+    print("Original Features:") 
+    print(X.head()) 
+    print("Selected Features:") 
+    print(X_new[:5])     
+"""
+    print(code2)
+
+
+def print_ap():
+    ap = """
+        import pandas as pd 
+        from mlxtend.frequent_patterns import apriori, association_rules 
+        # Load the dataset from the CSV file 
+        df = pd.read_csv('large_transactions.csv', header=None) 
+        print("Dataset loaded. Number of transactions:", len(df)) 
+        print("First few rows of the dataset:") 
+        print(df.head()) 
+        df_combined = df.apply(lambda x: x.dropna().tolist(), axis=1) 
+        df_combined = df_combined.explode()   
+        print("Combined and exploded dataset. Number of items:", len(df_combined)) 
+        basket = df_combined.reset_index().rename(columns={0: 'item'}) 
+        print("Data transformed into long format. Number of items:", len(basket)) 
+        basket = basket.pivot_table(index='index', columns='item', values='item', fill_value=0) 
+        basket = basket.astype(bool) 
+        print("Pivot table created. Shape of basket:", basket.shape) 
+        frequent_itemsets = apriori(basket, min_support=0.01, use_colnames=True)   
+        print("Frequent Itemsets calculated. Number of frequent itemsets found:", len(frequent_itemsets)) 
+        if not frequent_itemsets.empty: 
+        rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1.0) 
+        print("\nAssociation Rules generated. Number of rules found:", len(rules)) 
+        else: 
+        print("\nNo frequent itemsets found with the specified support.") 
+        print("\nFrequent Itemsets:") 
+        print(frequent_itemsets) 
+        print("\nAssociation Rules:") 
+        if not frequent_itemsets.empty: 
+        print(rules) 
+    """
+
+    print(ap)
+
+def print_dt():
+    des= """from sklearn.model_selection import train_test_split 
+    from sklearn.tree import DecisionTreeClassifier 
+    from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, 
+    confusion_matrix 
+    from sklearn.preprocessing import LabelEncoder 
+    from sklearn.metrics import ConfusionMatrixDisplay 
+    import seaborn as sns 
+    import matplotlib.pyplot as plt 
+    import pandas as pd 
+    
+    # Load the dataset 
+    file_path = 'races.csv' 
+    f1_data = pd.read_csv(file_path) 
+    f1_data.head() 
+    
+    # Define the placement category based on position 
+    def categorize_position(position): 
+        try: 
+            pos = int(position)  # Convert position to integer 
+            if pos <= 3: 
+                return "Top 3" 
+            elif pos <= 10: 
+                return "Top 10" 
+            else: 
+                return "Below 10" 
+        except: 
+            return "Unknown" 
+    
+    # Create a new column for placement category 
+    f1_data['placement_category'] = f1_data['position'].apply(categorize_position) 
+    f1_data = f1_data[f1_data['placement_category'] != "Unknown"]  # Remove unknown positions if 
+    any 
+    # Display the modified dataset 
+    f1_data[['position', 'placement_category']].head() 
+    # Select features and target variable 
+    X = f1_data[['number', 'laps', 'points', 'year', 'fastest_lap']] 
+    y = f1_data['placement_category'] 
+    # Encode categorical features and target 
+    X['fastest_lap'] = LabelEncoder().fit_transform(X['fastest_lap'])  # Encode 'fastest_lap' (yes/no to 1/0) 
+    y = LabelEncoder().fit_transform(y)  # Encode target variable 
+    # Train-test split 
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42) 
+    # Initialize and train the Decision Tree Classifier 
+    dt_classifier = DecisionTreeClassifier(random_state=42) 
+    dt_classifier.fit(X_train, y_train) 
+    # Make predictions 
+    y_pred = dt_classifier.predict(X_test) 
+    # Evaluate the model 
+    accuracy = accuracy_score(y_test, y_pred) 
+    precision = precision_score(y_test, y_pred, average='weighted') 
+    recall = recall_score(y_test, y_pred, average='weighted') 
+    f1 = f1_score(y_test, y_pred, average='weighted') 
+    cm = confusion_matrix(y_test, y_pred) 
+    print(f"Accuracy: {accuracy:.2f}") 
+    print(f"Precision: {precision:.2f}") 
+    print(f"Recall: {recall:.2f}") 
+    print(f"F1 Score: {f1:.2f}") 
+    # Confusion Matrix Visualization 
+    plt.figure(figsize=(8, 6)) 
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False, 
+    xticklabels=['Top 3', 'Top 10', 'Below 10'],  
+    yticklabels=['Top 3', 'Top 10', 'Below 10']) 
+    plt.xlabel("Predicted Label") 
+    plt.ylabel("True Label") 
+    plt.title("Confusion Matrix of Decision Tree Classifier") 
+    plt.show() """
+
+    print(des)
+
+
+def print_km():
+    km = """
+        import pandas as pd 
+        from sklearn.preprocessing import StandardScaler 
+        from sklearn.cluster import KMeans, AgglomerativeClustering 
+        import seaborn as sns 
+        import matplotlib.pyplot as plt 
+        import numpy as np 
+        from sklearn.metrics import silhouette_score 
+        import scipy.cluster.hierarchy as shc 
+        # Load the dataset 
+        f
+        ile_path = 'races.csv'  
+        data = pd.read_csv(file_path) 
+        data.head() 
+        #PREPROCESSING 
+        # Convert the 'position' column to numeric, using errors='coerce' to handle non-numeric values 
+        data['position'] = pd.to_numeric(data['position'], errors='coerce') 
+        # Drop rows with NaN values in the selected columns for clustering 
+        data_clustering = data[['position', 'laps', 'points']].dropna() 
+        # Standardize the features 
+        scaler = StandardScaler() 
+        data_scaled = scaler.fit_transform(data_clustering) 
+        # Perform K-means clustering 
+        kmeans = KMeans(n_clusters=3, random_state=42) 
+        data_clustering['kmeans_cluster'] = kmeans.fit_predict(data_scaled) 
+        # Calculate silhouette score for K-means 
+        silhouette_kmeans = silhouette_score(data_scaled, data_clustering['kmeans_cluster']) 
+        print(f"K-means Silhouette Score: {silhouette_kmeans}") 
+        # Perform Hierarchical clustering 
+        hierarchical = AgglomerativeClustering(n_clusters=3) 
+        data_clustering['hierarchical_cluster'] = hierarchical.fit_predict(data_scaled) 
+        # Calculate silhouette score for Hierarchical clustering 
+        silhouette_hierarchical = silhouette_score(data_scaled, data_clustering['hierarchical_cluster']) 
+        print(f"Hierarchical Clustering Silhouette Score: {silhouette_hierarchical}") 
+        #Visualize the Heatmap and Clusters 
+        f
+        ig, ax = plt.subplots(1, 3, figsize=(20, 5)) 
+        # Heatmap of the standardized data 
+        sns.heatmap(data_scaled, cmap="viridis", ax=ax[0]) 
+        ax[0].set_title("Data Heatmap (Standardized)") 
+        # K-means clustering scatter plot 
+        sns.scatterplot(x=data_clustering['position'], y=data_clustering['points'], 
+        hue=data_clustering['kmeans_cluster'], palette="viridis", ax=ax[1]) 
+        ax[1].set_title("K-means Clustering") 
+        ax[1].set_xlabel("Position") 
+        ax[1].set_ylabel("Points") 
+        # Dendrogram for Hierarchical Clustering 
+        shc.dendrogram(shc.linkage(data_scaled, method='ward'), ax=ax[2]) 
+        ax[2].set_title("Hierarchical Clustering Dendrogram") 
+        plt.tight_layout() 
+        plt.show() 
+            """
+    print(km)
+
