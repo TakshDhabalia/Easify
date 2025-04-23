@@ -1,1 +1,3 @@
-from .main import print_preprocessing_code , print_1 , print_2 , print_ap , print_dt , print_km
+# Easify/__init__.py
+
+from .main import ass1, ass2, ass3, ass4, ass5, ass6, ass7, info

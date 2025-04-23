@@ -1,6 +1,6 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: Easify
-Version: 1.0.3
+Version: 1.0.6
 Summary: Prints preprocessing code for data engineering tasks
 Author: Taksh Dhabalia
 Author-email: no@example.com
@@ -14,6 +14,15 @@ Requires-Dist: matplotlib
 Requires-Dist: seaborn
 Requires-Dist: scikit-learn
 Requires-Dist: scipy
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
 
 # Easify# Preprocessing Printer
 

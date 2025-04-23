@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="Easify",  # Replace with your package name
-    version="1.0.3",
+    version="1.0.6",
     description="Prints preprocessing code for data engineering tasks",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -12,12 +12,16 @@ setup(
     packages=find_packages(),
     entry_points={
         "console_scripts": [
-            "print_preprocessing=Easify.main:print_preprocessing_code",
-            "print1=Easify.main:print_1",
-            "print2=Easify.main:print_2" ,
-            "print_ap=Easify.main:print_ap",
-             "print_dt=Easify.main:print_dt",
-             "print_km=Easify.main:print_km", # Adjusted for Easify
+            "ass1=Easify.main:ass1",
+            "ass2=Easify.main:ass2",
+            "ass3=Easify.main:ass3",
+            "ass4=Easify.main:ass4",
+            "ass5=Easify.main:ass5",
+            "ass6=Easify.main:ass6",
+            "ass7=Easify.main:ass7",
+            "info=Easify.main:info",
+
+
         ],
     },
 
