@@ -715,3 +715,18 @@ print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_p
     """
     print(code)
 
+
+def info():
+    
+    info = """
+
+1. preprocessing 
+2. knn 
+3. decision tree 
+4. SVM 
+5. Random forest ensemble 
+6. Clustering 
+7. Linear and Multi regression"""
+
+
+    print(info)
